@@ -12,21 +12,11 @@ def check_if_arg_exists(index):
   try:
     return sys.argv[index]
   except IndexError:
-    sys.exit("Missing value")
+    sys.exit("Missing argument")
 
-def initialize_db_file():
-  #todo check if json file exists, if not then create one
-  print("test")
-
-def main():
-  initialize_db_file()
-
+def main():  
   valid_commands = ["add", "delete", "update", "list", "mark-done", "mark-in-progress"]
-  
-  if not (sys.argv[1] in valid_commands):
-    sys.exit("Invalid command (add, delete, update, list, mark-done, mark-in-progress")
-
-  command = sys.argv[1]
+  command = check_if_arg_exists(1)
 
   if not (command in valid_commands):
     sys.exit("Invalid command\n Valid Commands: add, delete, update, list, mark-done, mark-inprogress")
