@@ -1,7 +1,4 @@
-import io
-import json
-import os
-
+#the "API"
 def add_task(task):
   print("add")
 

@@ -3,8 +3,7 @@ import functions
 
 from errors import Errors
 
-PATH = "tasks.json"
-
+#the client
 def check_if_arg_exists(index):
   try:
     return sys.argv[index]
