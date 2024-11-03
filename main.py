@@ -1,31 +1,39 @@
-import io
-import json
-import os
 import sys
+import functions
+
+from errors import Errors
 
 PATH = "tasks.json"
-
-def add_task(task):
-  print(task)
 
 def check_if_arg_exists(index):
   try:
     return sys.argv[index]
   except IndexError:
-    sys.exit("Missing argument")
+    sys.exit(Errors.MISSING_ARG)
 
-def main():  
-  valid_commands = ["add", "delete", "update", "list", "mark-done", "mark-in-progress"]
+def main():
   command = check_if_arg_exists(1)
-
-  if not (command in valid_commands):
-    sys.exit("Invalid command\n Valid Commands: add, delete, update, list, mark-done, mark-inprogress")
-
+  
   match command:
     case "add":
-      task = check_if_arg_exists(2)
-
-      if task:
-        add_task(task)
+      task = check_if_arg_exists(2) 
+      functions.add_task(task)
+    case "update":
+      index = check_if_arg_exists(3)
+      new_task = check_if_arg_exists(4)
+      functions.update_task(index, new_task)
+    case "delete":
+      index = check_if_arg_exists(3)
+      functions.delete_task(index)
+    case "mark-in-progress":
+      index = check_if_arg_exists(3)
+      functions.update_progress(index, "In-Progress")
+    case "mark-done":
+      index = check_if_arg_exists(3)
+      functions.update_progress(index, "Done")
+    case "list":
+      status = sys.argv[2] if len(sys.argv) > 2 else None
+      functions.list_tasks(status)
+        
 
 main()
