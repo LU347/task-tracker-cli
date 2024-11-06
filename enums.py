@@ -6,3 +6,9 @@ class Errors(Enum):
 
 class Status(Enum):
   SUCCESS = "DB file successfully written"
+
+class Type(Enum):
+  #0 = In Progress #1 = Done
+  IN_PROGRESS = 0
+  DONE = 1
+

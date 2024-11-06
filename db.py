@@ -2,7 +2,9 @@ import json
 import os
 import sys
 
+from datetime import datetime
 from enums import Errors, Status
+from task import Task
 
 #the "database"
 FILE_PATH = "./lib/tasks.json"
@@ -14,14 +16,15 @@ def check_json_file_exists():
     with open(FILE_PATH, 'w') as f:
       json.dump({}, f)
 
-
-def add_task(new_task):
+def add_new_row(task_desc):
+  #id = len(jsonfile) + 1
+  row = Task(0, task_desc, datetime.today())
   file_exists = check_json_file_exists()
   if file_exists:
     try:
       with open(FILE_PATH, 'a') as f:
-        f.write(new_task)
+        #TODO: convert to json and write
     except IOError:
-      sys.exit(Errors.WRITE_FAIL.value)
-    else:
-      return sys.exit(Status.SUCCESS.value)
+      return Errors.WRITE_FAIL
+  else:
+    return Status.SUCCESS
