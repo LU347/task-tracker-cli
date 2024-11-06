@@ -1,6 +1,8 @@
 #the "API"
+import db
+
 def add_task(task):
-  print("add")
+  db.add_task(task)  
 
 def update_task(index, task):
   print("update")

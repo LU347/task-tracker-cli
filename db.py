@@ -1,7 +1,8 @@
 import json
 import os
+import sys
 
-from errors import Errors
+from enums import Errors, Status
 
 #the "database"
 FILE_PATH = "./lib/tasks.json"
@@ -16,9 +17,11 @@ def check_json_file_exists():
 
 def add_task(new_task):
   file_exists = check_json_file_exists()
-  
-  try:
-    with open(FILE_PATH, 'a') as f:
-      f.write(new_task)
+  if file_exists:
+    try:
+      with open(FILE_PATH, 'a') as f:
+        f.write(new_task)
     except IOError:
-      sys.exit(Errors.WRITE_FAIL)
+      sys.exit(Errors.WRITE_FAIL.value)
+    else:
+      return sys.exit(Status.SUCCESS.value)

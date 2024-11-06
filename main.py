@@ -1,14 +1,14 @@
 import sys
 import functions
 
-from errors import Errors
+from enums import Errors
 
 #the client
 def check_if_arg_exists(index):
   try:
     return sys.argv[index]
   except IndexError:
-    sys.exit(Errors.MISSING_ARG)
+    sys.exit(Errors.MISSING_ARG.value)
 
 def main():
   command = check_if_arg_exists(1)
