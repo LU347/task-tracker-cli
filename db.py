@@ -14,17 +14,22 @@ def check_json_file_exists():
     return True
   else:
     with open(FILE_PATH, 'w') as f:
-      json.dump({}, f)
+      f.close()
 
+def get_current_datetime():
+  current_datetime = datetime.now()
+  datetime_str = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+  return datetime_str
+ 
 def add_new_row(task_desc):
   #id = len(jsonfile) + 1
-  row = Task(0, task_desc, datetime.today())
+  row = Task(0, str(task_desc), get_current_datetime())
   file_exists = check_json_file_exists()
-  if file_exists:
-    try:
-      with open(FILE_PATH, 'a') as f:
-        #TODO: convert to json and write
-    except IOError:
-      return Errors.WRITE_FAIL
-  else:
-    return Status.SUCCESS
+  
+  try:
+    with open(FILE_PATH, 'a') as f:
+      f.write(row.get_json_obj())
+      f.close()
+  except IOError:
+      return Errors.WRITE_FAIL.value
+  return Status.SUCCESS.value

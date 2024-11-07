@@ -1,8 +1,8 @@
 #the "API"
 import db
 
-def print_response(enum):
-  print("# " + enum.value + " #\n")
+def print_response(response):
+  print("# " + response + " #\n")
  
 def add_task(task):
   print_response(db.add_new_row(task))

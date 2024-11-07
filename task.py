@@ -1,31 +1,14 @@
-from enums import Type
+import json
 
 class Task:
 
   def __init__(self, auto_id, description, created_at):
-    self.id = auto_id
+    self.id = 0
     self.desc = description
-    self.status = Type.IN_PROGRESS
+    self.status = "In Progress"
     self.created_at = created_at
-    self.updated_at = None
-
-  def get_status():
-    return self.status
+    self.updated_at = str(None)
   
-  def get_description():
-    return self.desc
+  def get_json_obj(self):
+    return json.dumps(self.__dict__, indent=4)
 
-  def get_creation_date():
-    return self.created_at
-
-  def get_updated_date():
-    return self.updated_at
-
-  def set_description(new_desc):
-    self.desc = new_desc
-
-  def set_status(new_status):
-    self.status = new_status
-
-  def set_updated_date(new_date):
-    self.updated_at = new_date
