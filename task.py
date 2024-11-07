@@ -3,7 +3,7 @@ import json
 class Task:
 
   def __init__(self, auto_id, description, created_at):
-    self.id = 0
+    self.id = auto_id
     self.desc = description
     self.status = "In Progress"
     self.created_at = created_at

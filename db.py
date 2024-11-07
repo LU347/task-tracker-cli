@@ -1,35 +1,36 @@
 import json
-import os
-import sys
+import helper
 
-from datetime import datetime
-from enums import Errors, Status
 from task import Task
 
 #the "database"
-FILE_PATH = "./lib/tasks.json"
+file_path = "./lib/tasks.json"
+data = []
 
-def check_json_file_exists():
-  if os.path.exists(FILE_PATH):
-    return True
-  else:
-    with open(FILE_PATH, 'w') as f:
+def initialize_data():
+  try:
+    with open(file_path, 'r') as f:
+      tasks = json.load(f)
+      for t in tasks:
+        data.append(t)
+      f.close()
+  except FileNotFoundError:
+    with open(file_path, 'w') as f:
+      json.dump([], f)
       f.close()
 
-def get_current_datetime():
-  current_datetime = datetime.now()
-  datetime_str = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
-  return datetime_str
+def get_row_count():
+  count = len(data)
+  return count
  
 def add_new_row(task_desc):
-  #id = len(jsonfile) + 1
-  row = Task(0, str(task_desc), get_current_datetime())
-  file_exists = check_json_file_exists()
+  initialize_data()
+
+  auto_id = len(data) + 1
+  row = Task(auto_id, str(task_desc), helper.get_current_datetime())
   
-  try:
-    with open(FILE_PATH, 'a') as f:
-      f.write(row.get_json_obj())
-      f.close()
-  except IOError:
-      return Errors.WRITE_FAIL.value
-  return Status.SUCCESS.value
+  data.append(row.get_json_obj())
+
+  status = helper.write_to_file(file_path, data)
+
+  return status
