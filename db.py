@@ -12,7 +12,7 @@ def initialize_data():
     with open(file_path, 'r') as f:
       tasks = json.load(f)
       for t in tasks:
-        data.append(t)
+        data.append(json.loads(t))
       f.close()
   except FileNotFoundError:
     with open(file_path, 'w') as f:
@@ -34,3 +34,8 @@ def add_new_row(task_desc):
   status = helper.write_to_file(file_path, data)
 
   return status
+
+def list_all_tasks():
+  initialize_data()
+
+  return data
