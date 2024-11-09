@@ -33,6 +33,8 @@ def main():
     case "list":
       status = sys.argv[2] if len(sys.argv) > 2 else None
       api.list_tasks(status)
+    case _:
+      sys.exit(Errors.INVALID_CMD.value)
         
 
 main()
