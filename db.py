@@ -39,8 +39,6 @@ def add_new_row(task_desc):
 
 def list_all_tasks():
   initialize_data()
-  for task in data:
-    print(type(task))
   return data
 
 def list_filtered_tasks(list_filter):

@@ -1,14 +1,20 @@
 #the "API"
 import db
 
+def render_status(status):
+  if status != "In-Progress":
+    return "[x]"
+  else:
+    return "[ ]"
+
 def print_response(response):
   if type(response) == str:
     print("# " + response + " #\n")
   elif type(response) == list:
-    print("#     To Do List     #\n")
+    print("\n#     To Do List     #")
     print("----------------------\n")
     for task in response:
-      print(str(task["id"]) + " - " + task["desc"] + " |" + task["status"] + "|\n")
+      print(str(task["id"]) + " - " + task["desc"] + " " + render_status(task["status"]) + "\n")
   else:
     print("# Something went wrong #\n")
  
