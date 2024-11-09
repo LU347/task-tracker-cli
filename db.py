@@ -38,7 +38,7 @@ def add_new_row(task_desc):
 
   return status
 
-def update_row(auto_id, new_task):
+def update_task(auto_id, new_task):
   initialize_data()
   auto_id = int(auto_id) - 1
   try:
@@ -49,6 +49,17 @@ def update_row(auto_id, new_task):
   except IndexError:
     return Errors.INVALID_ROW.value
 
+def update_status(auto_id, new_status):
+  initialize_data()
+  auto_id = int(auto_id) - 1
+  try:
+    data[auto_id]["status"] = new_status
+    data[auto_id]["updated_at"] = helper.get_current_datetime()
+    helper.write_to_file(file_path, data)
+    return Status.SUCCESS.value
+  except IndexError:
+    return Errors.INVALID_ROW.value
+ 
 def list_all_tasks():
   initialize_data()
   return data
