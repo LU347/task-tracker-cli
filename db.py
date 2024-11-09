@@ -2,6 +2,7 @@ import json
 import helper
 
 from task import Task
+from enums import Errors, Status
 
 #the "database"
 file_path = "./lib/tasks.json"
@@ -36,6 +37,17 @@ def add_new_row(task_desc):
   status = helper.write_to_file(file_path, data)
 
   return status
+
+def update_row(auto_id, new_task):
+  initialize_data()
+  auto_id = int(auto_id) - 1
+  try:
+    data[auto_id]["desc"] = new_task
+    data[auto_id]["updated_at"] = helper.get_current_datetime()
+    helper.write_to_file(file_path, data)
+    return Status.SUCCESS.value
+  except IndexError:
+    return Errors.INVALID_ROW.value
 
 def list_all_tasks():
   initialize_data()

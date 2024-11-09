@@ -8,7 +8,6 @@ def process_client_request(req, arg1=None, arg2=None):
       add_task(arg1)
     case "update":
       update_task(arg1, arg2)
-      print_response(Errors.MISSING_ARG.value)
     case "list":
       list_tasks(arg1)
     case _:
@@ -37,7 +36,7 @@ def add_task(task):
   print_response(db.add_new_row(task))
 
 def update_task(index, task):
-  print("update")
+  print_response(db.update_row(index, task))
 
 def update_status(index, progress = None):
   print("update status")
