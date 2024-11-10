@@ -18,30 +18,33 @@ task-tracker-cli/
 git clone https://github.com/LU347/task-tracker-cli.git
 cd task-tracker-cli
 ```
-
+## Executable:
+```
+chmod +x main.py
+```
 ## Usage:
 1. Adding a task
 ```
-python3 main.py add test
+./main.py add test
 or
-python3 main.py add "finish this readme"
+./main.py add "finish this readme"
 ```
 2. Updating a task:
 ```
-python3 main.py update 0 "new task" #{id of task} {new task}
+./main.py update 0 "new task" #{id of task} {new task}
 ```
 3. Marking a task as done/in-progress:
 ```
-python3 main.py mark-done 0 #id of task
-python3 main.py mark-in-progress 0
+./main.py mark-done 0 #id of task
+./main.py mark-in-progress 0
 ```
 4. List tasks:
 ```
-python3 main.py list {filter: done/in-progress} #filter is optional, will list all tasks if blank
+./main.py list {filter: done/in-progress} #filter is optional, will list all tasks if blank
 ```
 5. Delete a task:
 ```
-python3 main.py delete 0 #id of task
+./main.py delete 0 #id of task
 ```
 
 😀
