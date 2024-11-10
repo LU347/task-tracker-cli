@@ -11,7 +11,6 @@ def check_if_arg_exists(index):
     sys.exit(Errors.MISSING_ARG.value)
 
 def main():
-  print(len(sys.argv))
   match len(sys.argv):
     case 2:
       api.process_client_request(sys.argv[1])

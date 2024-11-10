@@ -6,6 +6,8 @@ def process_client_request(req, arg1=None, arg2=None):
   match req:
     case "add":
       add_task(arg1)
+    case "delete":
+      delete_task(arg1)
     case "update":
       update_task(arg1, arg2)
     case "mark-in-progress":
@@ -39,15 +41,15 @@ def add_task(task):
     print_response(Errors.INVALID_ARG.value)
   print_response(db.add_new_row(task))
 
+def delete_task(index):
+  print_response(db.delete_row(int(index)))
+ 
 def update_task(index, task):
-  print_response(db.update_row(index, task))
+  print_response(db.update_task(index, task))
 
 def update_status(index, status):
   if index:
     print_response(db.update_status(index, status))
-
-def delete_task(index):
-  print("delete")
 
 def list_tasks(list_filter = None):
   if list_filter:
