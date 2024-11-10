@@ -6,7 +6,7 @@ class Errors(Enum):
   FETCH_FAIL = "ERROR: Failed to fetch data"
   INVALID_CMD = "ERROR: Invalid command"
   INVALID_ARG = "ERROR: Invalid argument type"
-  INVALID_ROW = "ERROR: The task you are trying to update does not exist"
+  INVALID_ROW = "ERROR: The task you are trying to update/delete does not exist"
 
 class Status(Enum):
   SUCCESS = "DB file successfully written"

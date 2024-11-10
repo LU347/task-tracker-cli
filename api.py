@@ -1,4 +1,3 @@
-#the "API"
 import db
 from enums import Errors
 
@@ -27,22 +26,26 @@ def render_status(status):
 
 def print_response(response):
   if type(response) == str:
-    print("# " + response + " #\n")
+    print(f"# {response}  #\n")
   elif type(response) == list:
     print("\n#     To Do List     #")
     print("----------------------\n")
     for task in response:
-      print(str(task["id"]) + " - " + task["desc"] + " " + render_status(task["status"]) + "\n")
+      print(f"{task['id']} - {task['desc']} {render_status(task['status'])} \n")
   else:
     print("# Something went wrong #\n")
  
 def add_task(task):
-  if type(task) != str:
+  if task is None or not str:
     print_response(Errors.INVALID_ARG.value)
-  print_response(db.add_new_row(task))
+  else:
+    print_response(db.add_new_row(task))
 
 def delete_task(index):
-  print_response(db.delete_row(int(index)))
+  if index is not None:
+    print_response(db.delete_row(int(index)))
+  else:
+    print_response(Errors.INVALID_ARG.value)
  
 def update_task(index, task):
   print_response(db.update_task(index, task))

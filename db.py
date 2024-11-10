@@ -1,10 +1,9 @@
 import json
-import helper
 
 from task import Task
+from datetime import datetime
 from enums import Errors, Status
 
-#the "database"
 file_path = "./lib/tasks.json"
 data = []
 
@@ -23,6 +22,20 @@ def initialize_data():
       json.dump([], f)
       f.close()
 
+def write_to_file():
+  try:
+    with open(file_path, 'w') as f:
+      json.dump(data, f, indent=4)
+      f.close()
+  except IOError:
+    return Errors.WRITE_FAIL.value
+  return Status.SUCCESS.value
+
+def get_current_datetime():
+  current_datetime = datetime.now()
+  date_string = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+  return date_string
+
 def get_row_count():
   count = len(data)
   return count
@@ -30,19 +43,23 @@ def get_row_count():
 def add_new_row(task_desc):
   initialize_data() 
   auto_id = len(data)
-  row = Task(auto_id, str(task_desc), helper.get_current_datetime())
+  row = Task(auto_id, str(task_desc), get_current_datetime())
   data.append(row.get_json_obj())
-  status = helper.write_to_file(file_path, data)
+  
+  status = write_to_file()
   return status
 
 def delete_row(index):
   initialize_data()
-  data.pop(index)
-  for i in range(len(data)):
-    data[i]["id"] = i
-  
-  status = helper.write_to_file(file_path, data)
-  return status
+
+  try:
+    data.pop(index)
+    for i in range(len(data)):
+      data[i]["id"] = i
+    status = write_to_file()
+    return status
+  except IndexError:
+    return Errors.INVALID_ROW.value
   
 def update_key(auto_id, key, new_value):
   initialize_data()
@@ -50,9 +67,9 @@ def update_key(auto_id, key, new_value):
 
   try:
     data[auto_id][key] = new_value
-    data[auto_id]["updated_at"] = helper.get_current_datetime()
-    helper.write_to_file(file_path, data)
-    return Status.SUCCESS.value
+    data[auto_id]["updated_at"] = get_current_datetime()
+    status = write_to_file()
+    return status
   except IndexError:
     return Errors.INVALID_ROW.value
 
