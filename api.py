@@ -48,7 +48,10 @@ def delete_task(index):
     print_response(Errors.INVALID_ARG.value)
  
 def update_task(index, task):
-  print_response(db.update_task(index, task))
+  if index is not None:
+    print_response(db.update_task(index, task))
+  else:
+    print_response(Errors.INVALID_ARG.value)
 
 def update_status(index, status):
   if index:
